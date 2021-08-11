@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+import { onErrorToast } from '../ToastError';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Button } from '../Button/Button';
 import { GalleryLoader } from '../Loader/Loader';
@@ -37,7 +38,7 @@ class ImageGallery extends Component {
     fetchPictures(name, page)
       .then(pictures => {
         if (pictures.hits.length === 0) {
-          toast.error('Please enter a valid request');
+          onErrorToast();
         }
 
         return this.setState(prevState => ({
@@ -114,13 +115,8 @@ class ImageGallery extends Component {
 
 export default ImageGallery;
 
-//  if (prevState.page !== this.state.page) {
-//    const { page } = this.state;
-//    const name = this.props.pictureName;
-//    fetchPictures(name, page).then(pictures =>
-//      this.setState({
-//        pictures: [...prevState.pictures, ...pictures.hits],
-//        // page: this.state.page + 1,
-//      }),
-//    );
-//  }
+ImageGallery.propTypes = {
+  pictures: PropTypes.arrayOf(PropTypes.object),
+  handleImageClick: PropTypes.func,
+  page: PropTypes.number,
+};

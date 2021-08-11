@@ -1,8 +1,13 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+import { onErrorToast } from '../ToastError';
 import s from './SearchBar.module.css';
 
 class SearchBar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     pictureName: '',
   };
@@ -14,7 +19,8 @@ class SearchBar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.pictureName.trim() === '') {
-      toast.error('Please enter a valid request');
+      onErrorToast();
+
       return;
     }
 
