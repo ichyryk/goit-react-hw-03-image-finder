@@ -24,10 +24,8 @@ class ImageGallery extends Component {
 
   onLoadMoreBtn = e => {
     e.preventDefault();
+    this.onFetchPictures();
 
-    setTimeout(() => {
-      this.onFetchPictures();
-    }, 500);
     this.scrollPageToEnd();
   };
 
